@@ -136,7 +136,7 @@ public class PatientServiceImpl extends BaseOpenmrsService implements PatientSer
 		return dao.savePatient(patient);
 	}
 
-	private void requireAppropriatePatientModificationPrivilege(Patient patient) {
+	protected void requireAppropriatePatientModificationPrivilege(Patient patient) {
 		if (patient.getPatientId() == null) {
 			Context.requirePrivilege(PrivilegeConstants.ADD_PATIENTS);
 		} else {
@@ -147,7 +147,7 @@ public class PatientServiceImpl extends BaseOpenmrsService implements PatientSer
 		}
 	}
 
-	private void setPreferredPatientIdentifier(Patient patient) {
+	protected void setPreferredPatientIdentifier(Patient patient) {
 		PatientIdentifier preferredIdentifier = null;
 		PatientIdentifier possiblePreferredId = patient.getPatientIdentifier();
 		if (possiblePreferredId != null && possiblePreferredId.getPreferred() && !possiblePreferredId.getVoided()) {
@@ -167,7 +167,7 @@ public class PatientServiceImpl extends BaseOpenmrsService implements PatientSer
 		}
 	}
 
-	private void setPreferredPatientName(Patient patient) {
+	protected void setPreferredPatientName(Patient patient) {
 		PersonName preferredName = null;
 		PersonName possiblePreferredName = patient.getPersonName();
 		if (possiblePreferredName != null && possiblePreferredName.getPreferred() && !possiblePreferredName.getVoided()) {
@@ -187,7 +187,7 @@ public class PatientServiceImpl extends BaseOpenmrsService implements PatientSer
 		}
 	}
 	
-	private void setPreferredPatientAddress(Patient patient) {
+	protected void setPreferredPatientAddress(Patient patient) {
 		PersonAddress preferredAddress = null;
 		PersonAddress possiblePreferredAddress = patient.getPersonAddress();
 		if (possiblePreferredAddress != null && possiblePreferredAddress.getPreferred()
