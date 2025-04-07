@@ -220,7 +220,7 @@ public class EncounterServiceImpl extends BaseOpenmrsService implements Encounte
 	 * @param encounter encounter which is to be edited
 	 * @throws APIException if not allowed to edit encounter
 	 */
-	private void failIfDeniedToEdit(Encounter encounter) throws APIException {
+	public void failIfDeniedToEdit(Encounter encounter) throws APIException {
 		if (!canEditEncounter(encounter, null)) {
 			throw new APIException("Encounter.error.privilege.required.edit", new Object[] { encounter.getEncounterType()
 			        .getEditPrivilege() });
@@ -254,7 +254,7 @@ public class EncounterServiceImpl extends BaseOpenmrsService implements Encounte
 	 * 
 	 * @param encounter which is to be edited
 	 */
-	private boolean requirePrivilege(Encounter encounter) {
+	public boolean requirePrivilege(Encounter encounter) {
 		boolean isNewEncounter = false;
 		if (encounter.getEncounterId() == null) {
 			isNewEncounter = true;
@@ -287,7 +287,7 @@ public class EncounterServiceImpl extends BaseOpenmrsService implements Encounte
 	 * @param obsToAdd Collection of obs that need to be added recursively
 	 * @param encounter the encounter to which the obs will be added
 	 */
-	private void addGivenObsAndTheirGroupMembersToEncounter(Collection<Obs> obsToAdd, Encounter encounter) {
+	public void addGivenObsAndTheirGroupMembersToEncounter(Collection<Obs> obsToAdd, Encounter encounter) {
 		for (Obs o : obsToAdd) {
 			encounter.addObs(o);
 			Set<Obs> groupMembers = o.getGroupMembers(true);
