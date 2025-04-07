@@ -20,12 +20,14 @@ import org.openmrs.test.jupiter.BaseContextMockTest;
 
 import java.util.Collections;
 import java.util.Set;
+import java.util.Arrays;
+import java.util.HashSet;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.lenient;
 
 public class CreatePatientTest extends BaseContextMockTest {
 
@@ -147,7 +149,9 @@ public class CreatePatientTest extends BaseContextMockTest {
         PatientIdentifier identifier2 = mock(PatientIdentifier.class);
 
         when(patient.getVoided()).thenReturn(false);
-        when(patient.getIdentifiers()).thenReturn(Set.of(identifier1, identifier2));
+        when(patient.getIdentifiers()).thenReturn(
+            new HashSet<>(Arrays.asList(identifier1, identifier2))
+        );
         when(patientDaoMock.savePatient(patient)).thenReturn(patient);
 
         Patient result = spyService.savePatient(patient);
